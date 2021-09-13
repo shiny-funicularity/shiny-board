@@ -1,9 +1,37 @@
-import React from 'react';
-import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
-import './App.css';
+import React, { useEffect } from "react";
+import logo from "./logo.svg";
+import { Counter } from "./features/counter/Counter";
+import "./App.css";
+import { Chart, registerables } from "chart.js";
 
 function App() {
+  useEffect(() => {
+    Chart.register(...registerables);
+
+    const labels = ["January", "February", "March", "April", "May", "June"];
+
+    const data = {
+      labels: labels,
+      datasets: [
+        {
+          label: "My First dataset",
+          backgroundColor: "rgb(255, 99, 132)",
+          borderColor: "rgb(255, 99, 132)",
+          data: [0, 10, 5, 2, 20, 30, 45],
+        },
+      ],
+    };
+
+    const config = {
+      type: "line",
+      data: data,
+      options: {},
+    };
+
+    // let myChart = new Chart(document.getElementById("chart"), config);
+    new Chart(document.getElementById("chart"), config);
+    // myChart.draw();
+  }, []);
   return (
     <div className="App">
       <header className="App-header">
@@ -51,6 +79,8 @@ function App() {
           </a>
         </span>
       </header>
+      <div>Test</div>
+      <canvas id="chart"></canvas>
     </div>
   );
 }
